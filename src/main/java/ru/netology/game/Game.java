@@ -2,36 +2,26 @@ package ru.netology.game;
 
 import ru.netology.domain.Player;
 import ru.netology.exception.NotRegisteredException;
-import ru.netology.repository.RepositoryOfPlayers;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class Game {
-    RepositoryOfPlayers repository;
+    private List<Player> players = new ArrayList<>();
 
     public void register(Player player) {
-        repository.add(player);
-    }
-
-    public Game(RepositoryOfPlayers repository) {
-        this.repository = repository;
-    }
-
-    public Player[] getAll() {
-        return repository.findAll().toArray(new Player[0]);
+        players.add(player);
     }
 
     public Player findByName(String name) {
-        Player[] players = repository.findAll().toArray(new Player[0]);
-        Player newMember = null;
-        for (Player player : players) {
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
             if (player.getName().equals(name)) {
-                newMember = new Player(player.getId(), player.getName(), player.getStrength());
+                return player;
             }
         }
-        return newMember;
+        return null;
     }
 
     public int round(String playerName1, String playerName2) {
